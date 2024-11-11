@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: max-content;
+        }
+
+        label {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .checkbox-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .submit-button {
+            width: max-content;
+        }
+    </style>
+    <h1>Форма опроса</h1>
+    <form class="form" action="#">
+        <div class="username-box">
+            <label for="username">Имя пользователя:</label>
+            <input name="username" type="text" required>
+        </div>
+
+        <div class="email-box">
+            <label for="email">Email:</label>
+            <input name="email" type="email" required>
+        </div>
+        <div class="radio-box">
+            <label for="radio">Пол:</label>
+            <input name="sex" type="radio" value="Мужской">Мужской
+            <input name="sex" type="radio" value="Женский">Женский
+        </div>
+        <div class="range-box">
+            <label for="range">Оценка сервиса:</label>
+            <input name="rate" type="range" max="10" step="1">
+        </div>
+        <div class="checkbox-box">
+            <label>Интересы пользователя:</label>
+            <div><input name="activity" type="checkbox" value="Спорт">Спорт</div>
+            <div><input name="activity" type="checkbox" value="Музыка">Музыка</div>
+            <div><input name="activity" type="checkbox" value="Путешествия">Путешествия</div>
+            <div><input name="activity" type="checkbox" value="Кино">Кино</div>
+        </div>
+        <label for="comm">Дополнительные комментарии:</label>
+        <textarea name="comm"></textarea>
+        <button type="submit" class="submit-button">Отправить</button>
+    </form>
+
+    <div class="filled-form"></div>
+    <script>
+        const form = document.querySelector('.form');
+        console.log(form);
+        form.addEventListener('submit', function(e) {
+            e.preventDefault()
+            const formData = new FormData(form)
+            const username = formData.get('username');
+            const email = formData.get('email');
+            const sex = formData.get('sex');
+            const rate = formData.get('rate');
+            const activity = formData.getAll('activity');
+            const comm = formData.get('comm');
+
+            const field = document.querySelector('.filled-form');
+
+            const resultTitle = document.createElement('h2');
+            resultTitle.innerHTML = 'Результаты опроса:'
+
+            const resultName = document.createElement('p');
+            resultName.innerHTML = `Имя пользователя: ${username}`
+
+            const resultEmail = document.createElement('p');
+            resultEmail.innerHTML = `Email: ${email}`
+
+            const resulSex = document.createElement('p');
+            resulSex.innerHTML = `Пол: ${sex}`
+
+            const resultRate = document.createElement('p');
+            resultRate.innerHTML = `Оценка сервиса: ${rate}`
+
+            const resultActivity = document.createElement('p');
+            resultActivity.innerHTML = `Интересы пользователя: ${activity}`
+
+            const resultComm = document.createElement('p');
+            resultComm.innerHTML = `Дополнительные комментарии: ${comm}`
+
+            field.appendChild(resultTitle)
+            field.appendChild(resultName)
+            field.appendChild(resultEmail)
+            field.appendChild(resulSex)
+            field.appendChild(resultRate)
+            field.appendChild(resultActivity)
+            field.appendChild(resultComm)
+        })
+    </script>
+</body>
+
+</html>

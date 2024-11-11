@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: max-content;
+        }
+
+        .submit-button {
+            width: max-content;
+            margin-bottom: 15px;
+        }
+
+        .alert {
+            color: red;
+        }
+    </style>
+    <h1>Калькулятор стоимости доставки</h1>
+    <form class="form" action="#">
+        <div class="itemName-box">
+            <label for="itemName">Название товара:</label>
+            <input name="itemName" type="text" required>
+        </div>
+
+        <div class="weight-box">
+            <label for="weight">Вес товара (кг):</label>
+            <input name="weight" type="number" required>
+        </div>
+        <div class="wayLen-box">
+            <label for="wayLen">Расстояние доставки (км):</label>
+            <input name="wayLen" type="number" required>
+        </div>
+        <button type="submit" class="submit-button">Добавить товар</button>
+    </form>
+    <p class="alert"></p>
+    <table class="product-table">
+        <thead class="table-thead">
+            <tr>
+                <th>Название товара</th>
+                <th>Вес (кг)</th>
+                <th>Расстояние (км)</th>
+                <th>Стоимость доставки</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Здесь будут добавляться товары -->
+        </tbody>
+    </table>
+    <script>
+        function addColumnsValue(value) {
+            const column = document.createElement('th');
+            column.innerHTML = value
+            return column
+        }
+
+        const form = document.querySelector('.form');
+
+        form.addEventListener("submit", function(e) {
+            e.preventDefault()
+            const alert = document.querySelector('.alert');
+            alert.innerHTML = ''
+            const weightValue = document.querySelector('input[name=weight]').value;
+            const wayLenValue = document.querySelector('input[name=wayLen]').value;
+            
+            if (wayLenValue < 1 || weightValue < 1) {
+                alert.innerHTML = 'Пожалуйста, введите корректные значения для веса и расстояния'
+            } else {
+                const name = document.querySelector('input[name=itemName]').value;
+                const table = document.querySelector('.table-thead');
+                const cost = (weightValue * wayLenValue / 10).toFixed(2)
+                const valueArray = [name, weightValue, wayLenValue, `${cost} руб.`]
+
+                const row = document.createElement('tr');
+                valueArray.forEach(value => {
+                    row.appendChild(addColumnsValue(value))
+                });
+
+                table.appendChild(row)    
+            }
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .bank-card {
+            width: 250px;
+            height: 150px;
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 25px;
+            overflow-wrap: break-word;
+        }
+
+        input {
+            margin: 10px;
+        }
+    </style>
+    <h1>Настройте оформление карты:</h1>
+    <div class="card-design">
+        <label for="card-text">Текст:</label>
+        <input name="card-text" type="text" maxlength="35">
+
+        <label for="card-color">Цвет:</label>
+        <select name="card-color">
+            <option value="white">Нет цвета</option>
+            <option value="red">Красный</option>
+            <option value="blue">Синий</option>
+            <option value="green">Зелёный</option>
+        </select>
+
+        <p class="bank-card" id="card"></p>
+    </div>
+    <script>
+        const cardText = document.querySelector('input[name=card-text]');
+        const cardColor = document.querySelector('select[name=card-color]');
+        const card = document.querySelector('.bank-card');
+
+        cardText.addEventListener('input', function() {
+            card.innerHTML = cardText.value;
+        })
+
+        cardText.addEventListener('focus', function() {
+            cardText.style.backgroundColor = 'lightblue';
+        })
+
+        cardText.addEventListener('blur', function() {
+            cardText.style.backgroundColor = 'white';
+        })
+        
+        cardColor.addEventListener('change', function() {
+            card.style.backgroundColor = cardColor.value;
+            console.log(cardColor.value);
+        })
+    </script>
+</body>
+</html>
